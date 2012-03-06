@@ -1,0 +1,37 @@
+WHAT IS THIS
+============
+
+This java application has been tested on a Jetty v8 server on the head node of a Liquid Galaxy install.
+
+It sends KML networklink updates to the Google Earth (48 slave instances (screen only,no input) + 4 masters(touchscreens)).
+The HTML interface available on the touchscreens (running chrome/chromium) uses the servlets from this application to interact with Google Earth.
+
+HOW TO START
+============
+check out / clone this.
+Compile and deploy as root application on a Jetty v8 server.
+
+Eclipse (Indigo) can be used with eGit and Jetty v8 for easy deployment and testing.
+
+WHAT'S INSIDE
+=============
+Servlets (read the javadoc / source code for the parameters) :
+/search : called by HTML interface to search in the landmarks database, returns CSV with the result in a JS variable + call to the callback function. 
+JS code needs to be interpreted by the HTML interface.
+The initialization of this servlet loads a Lucene in memory index with the Landmarks description from a CSV file (distant or local copy).
+
+/flyTo & /flyToPlacemark : called by HTML interface to send Google Earth to some coordinates / placemark
+
+/reset : called by HTML interface to send Google Earth to the default coordinates
+
+/pixel : tracking transparent pixel, called from the balloons opened (on the touchscreens), sending the ID of the balloon. 
+This functions as a heart beat, if the beat is missed for a long time, the balloon is assumed as closed.
+
+/closeBalloon : called by HTML interface to close a balloon
+
+/admin : admin interface used to restart some services from the HTML interface on the touchscrens.
+It is protected by a simple screenlock if called trough admin.html .
+
+/getKmlSync : this sends the kml networklink update to all the Google Earth instances. (it is called every second)
+It also monitors the calls from Google Earth, as a heart beat with 90s grace period.
+After the grace period some services get restarted (maximum number of retries is 6).

@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Admin lock screen</title>
+</head>
+<body>
+<script>
+function doUnlock(){
+  if (document.getElementById('key').value == "123") {
+      document.getElementById('myframe').src='http://lg-head:8080/admin?gui=simple';
+      document.getElementById('key').value = "";
+  }
+  if (document.getElementById('key').value == "456") {
+        document.getElementById('myframe').src='http://lg-head:8080/admin?gui=full';
+        document.getElementById('key').value = "";
+  }
+}
+function doReset(){
+    document.getElementById('key').value = "";
+    document.getElementById('myframe').src='about:blank';
+}
+function setKey(stroke){
+	if (stroke == '<')
+		document.getElementById('key').value = document.getElementById('key').value.substring(0,document.getElementById('key').value.length-1);
+	else
+    document.getElementById('key').value = document.getElementById('key').value + stroke;
+}
+</script>
+<input type="button" value="0" style="color:blue; background-color:yellow ; font-size: xx-large;border:thick;" onclick="setKey(this.value);">
+&nbsp;<input type="button" value="1" style="color:green; background-color:cyan ; font-size: xx-large;border:thick;" onclick="setKey(this.value);">
+&nbsp;<input type="button" value="2" style="color:red; font-size: xx-large;border:thick;" onclick="setKey(this.value);">
+&nbsp;<input type="button" value="3" style="color:brown;background-color:lime; font-size: xx-large;border:thick;" onclick="setKey(this.value);">
+&nbsp;<input type="button" value="4" style="color:purple; font-size: xx-large;border:thick;" onclick="setKey(this.value);">
+&nbsp;<input type="button" value="5" style="color:lime; background-color:brown; font-size: xx-large;border:thick;" onclick="setKey(this.value);">
+&nbsp;<input type="button" value="6" style="color:black; background-color:orange; font-size: xx-large;border:thick;" onclick="setKey(this.value);">
+&nbsp;<input type="button" value="7" style="color:green; font-size: xx-large;border:thick;" onclick="setKey(this.value);">
+&nbsp;<input type="button" value="8" style="color:blue; font-size: xx-large;border:thick;" onclick="setKey(this.value);">
+&nbsp;<input type="button" value="9" style="color:red; font-size: xx-large;border:thick;" onclick="setKey(this.value);">
+&nbsp;<input type="button" value="<" style="color:green; font-size: xx-large;border:thick;" onclick="setKey(this.value);">
+<br/><br/>
+<input type="button" value="Deverrouiller" style="color: green;font-size: x-large;" onclick="doUnlock();">
+&nbsp;<input type="button" value="Fermer" style="color: blue;font-size: x-large;" onclick="doReset();">
+<input type="text" id="key" style="color:red;">
+<br/>
+<iframe width="440px" height="550px" id="myframe" src="about:blank"></iframe>
+</body>
+</html>
